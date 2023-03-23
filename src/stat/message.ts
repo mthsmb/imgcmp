@@ -90,7 +90,7 @@ export const statMessage = async (statJsonPath: string) => {
   }
   </table>
 
-  This Pull Request is created by GitHub Actions ([9sako6/imgcmp](https://github.com/9sako6/imgcmp)).`;
+  This Pull Request is created by GitHub Actions ([mthsmb/imgoptmizer](https://github.com/mthsmb/imgoptmizer)).`;
 
   if (totalDiffRate < THRESHOLD) {
     return "";

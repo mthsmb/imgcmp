@@ -13,25 +13,25 @@ with those permission to open a pull request automatically.
 
 Then please add the personal access token to your
 [repository secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository)
-with an easily recognizable name. For example, `IMGCMP_ACCESS_TOKEN`.
+with an easily recognizable name. For example, `imgoptmizer_ACCESS_TOKEN`.
 
 ### 2nd step
 
 To run this GitHub Actions, please add the following lines to your
-`.github/workflows/imgcmp.yml`:
+`.github/workflows/imgoptmizer.yml`:
 
 ```yml
-name: imgcmp
+name: imgoptmizer
 on:
   push:
     branches:
       - main
       - master
 jobs:
-  imgcmp:
+  imgoptmizer:
     runs-on: ubuntu-latest
     steps:
-      - uses: 9sako6/imgcmp@v2.0.2
+      - uses: mthsmb/imgoptmizer@v2.0.2
         with:
-          token: ${{ secrets.IMGCMP_ACCESS_TOKEN }}
+          token: ${{ secrets.imgoptmizer_ACCESS_TOKEN }}
 ```

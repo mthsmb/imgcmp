@@ -1,19 +1,19 @@
-name: imgcmp-push
+name: imgoptmizer-push
 on: [push]
 jobs:
-  imgcmp-push:
+  imgoptmizer-push:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3.0.0
       - uses: ./
-        id: imgcmp
+        id: imgoptmizer
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           paths-ignore-regexp: 'figs/logo\.png'
       - name: Close Pull
-        if: steps.imgcmp.outputs.pull-request-number != ''
+        if: steps.imgoptmizer.outputs.pull-request-number != ''
         uses: peter-evans/close-pull@v2
         with:
-          pull-request-number: ${{ steps.imgcmp.outputs.pull-request-number }}
+          pull-request-number: ${{ steps.imgoptmizer.outputs.pull-request-number }}
           comment: Auto-closing pull request
           delete-branch: true
