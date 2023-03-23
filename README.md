@@ -1,13 +1,13 @@
-<h1 align="center">imgoptmizer v2.0.2</h1>
+<h1 align="center">imgoptimizer v2.0.2</h1>
 
 <p align="center"><img src="./figs/logo.png" width="50%"></p>
 
 <p align="center">
-  <a href="https://github.com/mthsmb/imgoptmizer/actions?CI">
-    <img src="https://github.com/mthsmb/imgoptmizer/workflows/CI/badge.svg" alt="ci" />
+  <a href="https://github.com/mthsmb/imgoptimizer/actions?CI">
+    <img src="https://github.com/mthsmb/imgoptimizer/workflows/CI/badge.svg" alt="ci" />
   </a>
-  <a href="https://github.com/marketplace/actions/imgoptmizer">
-    <img src="https://img.shields.io/badge/Marketplace-imgoptmizer-blue.svg?colorA=24292e&colorB=0366d6&style=flat&longCache=true&logo=github" alt="marketplace" />
+  <a href="https://github.com/marketplace/actions/imgoptimizer">
+    <img src="https://img.shields.io/badge/Marketplace-imgoptimizer-blue.svg?colorA=24292e&colorB=0366d6&style=flat&longCache=true&logo=github" alt="marketplace" />
   </a>
 </p>
 
@@ -22,17 +22,17 @@ A pull request example:
 ## Usage
 
 ```yml
-name: imgoptmizer
+name: imgoptimizer
 on:
   push:
     branches:
       - main
       - master
 jobs:
-  imgoptmizer:
+  imgoptimizer:
     runs-on: ubuntu-latest
     steps:
-      - uses: mthsmb/imgoptmizer@v2.0.2
+      - uses: mthsmb/imgoptimizer@v2.0.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -40,15 +40,15 @@ jobs:
 If you want to run this action only once a week, please add the following lines.
 
 ```yml
-name: imgoptmizer
+name: imgoptimizer
 on:
   schedule:
     - cron: "0 0 * * 1" # Weekly build
 jobs:
-  imgoptmizer:
+  imgoptimizer:
     runs-on: ubuntu-latest
     steps:
-      - uses: mthsmb/imgoptmizer@v2.0.2
+      - uses: mthsmb/imgoptimizer@v2.0.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -67,23 +67,23 @@ Then, you will receive a pull request with optimized images every Monday at
 
 #### `paths-ignore-regexp`
 
-imgoptmizer offers an ignore option. `paths-ignore-regexp` is regular expression for
+imgoptimizer offers an ignore option. `paths-ignore-regexp` is regular expression for
 images' paths you don't want to compress.
 
 Example:
 
 ```yml
-name: imgoptmizer
+name: imgoptimizer
 on:
   push:
     branches:
       - main
       - master
 jobs:
-  imgoptmizer:
+  imgoptimizer:
     runs-on: ubuntu-latest
     steps:
-      - uses: mthsmb/imgoptmizer@v2.0.2
+      - uses: mthsmb/imgoptimizer@v2.0.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           paths-ignore-regexp: "(ignore/.*)|(public/.*)"
@@ -93,18 +93,18 @@ jobs:
 
 | Name|Description|
 | - | - |
-| `pull-request-number` | A pull request number created by imgoptmizer. |
+| `pull-request-number` | A pull request number created by imgoptimizer. |
 
 Step outputs can be accessed as in the following example.
 
 ```yml
-      - uses: mthsmb/imgoptmizer@v2.0.2
-        id: imgoptmizer
+      - uses: mthsmb/imgoptimizer@v2.0.2
+        id: imgoptimizer
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Check outputs
         run: |
-          echo ${{ steps.imgoptmizer.outputs.pull-request-number }}
+          echo ${{ steps.imgoptimizer.outputs.pull-request-number }}
 ```
 
 ## Supported image formats
@@ -151,28 +151,28 @@ It took 34 sec to create the following PR.
 
 ### `v2.0.2` (June 26, 2022)
 
-- Skip to create PR if there are small changes (https://github.com/mthsmb/imgoptmizer/pull/184)
-- Add `pull-request-number` outputs (https://github.com/mthsmb/imgoptmizer/pull/169)
+- Skip to create PR if there are small changes (https://github.com/mthsmb/imgoptimizer/pull/184)
+- Add `pull-request-number` outputs (https://github.com/mthsmb/imgoptimizer/pull/169)
 
 ### `v2.0.1` (April 10, 2022)
 
 Bug fixes.
 
 - Fix the problem that actions fail when a trigger event is `pull_request`
-  (https://github.com/mthsmb/imgoptmizer/pull/99)
+  (https://github.com/mthsmb/imgoptimizer/pull/99)
 - Fix the problem that actions fail when `paths-ignore-regexp` is empty
-  (https://github.com/mthsmb/imgoptmizer/pull/51)
+  (https://github.com/mthsmb/imgoptimizer/pull/51)
 
 ### `v2.0.0` (February 6, 2022)
 
 There are breaking changes from version `1.0.1`.
 
-- Add `token` input (https://github.com/mthsmb/imgoptmizer/pull/26)
+- Add `token` input (https://github.com/mthsmb/imgoptimizer/pull/26)
   - `GITHUB_TOKEN` option in `env` was deleted.
-- Add `paths-ignore-regexp` input (https://github.com/mthsmb/imgoptmizer/pull/26)
+- Add `paths-ignore-regexp` input (https://github.com/mthsmb/imgoptimizer/pull/26)
   - `IGNORED_FILES` option in `env` was deleted.
 - Refactoring the pull request template
-  (https://github.com/mthsmb/imgoptmizer/pull/26)
+  (https://github.com/mthsmb/imgoptimizer/pull/26)
 
 ## Author
 

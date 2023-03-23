@@ -1,4 +1,4 @@
-name: "imgoptmizer"
+name: "imgoptimizer"
 description: "Optimize images in your repository. Supported image file formats: JPEG, PNG, GIF, SVG, WEBP"
 author: "mthsmb"
 branding:
@@ -14,17 +14,17 @@ inputs:
     default: ""
 outputs:
   pull-request-number:
-    description: "A pull request number created by imgoptmizer."
+    description: "A pull request number created by imgoptimizer."
     value: ${{ steps.set-outputs.outputs.pull-request-number }}
 runs:
   using: "composite"
   steps:
     - uses: denoland/setup-deno@v1.1.0
-      if: startsWith(github.head_ref, 'actions/imgoptmizer/') != true && startsWith(github.ref_name, 'actions/imgoptmizer/') != true
+      if: startsWith(github.head_ref, 'actions/imgoptimizer/') != true && startsWith(github.ref_name, 'actions/imgoptimizer/') != true
       with:
         deno-version: "1.19.2"
     - name: Install cwebp, gifsicle, jpegoptim, optipng, svgo
-      if: startsWith(github.head_ref, 'actions/imgoptmizer/') != true && startsWith(github.ref_name, 'actions/imgoptmizer/') != true
+      if: startsWith(github.head_ref, 'actions/imgoptimizer/') != true && startsWith(github.ref_name, 'actions/imgoptimizer/') != true
       shell: bash
       run: |
         sudo apt-get install -y webp gifsicle jpegoptim optipng
@@ -35,18 +35,18 @@ runs:
         optipng -v
         svgo -v
     - name: Branch information
-      if: startsWith(github.head_ref, 'actions/imgoptmizer/') != true && startsWith(github.ref_name, 'actions/imgoptmizer/') != true
+      if: startsWith(github.head_ref, 'actions/imgoptimizer/') != true && startsWith(github.ref_name, 'actions/imgoptimizer/') != true
       shell: bash
       run: |
         # NOTE: `head_ref` is available when an action is triggered by pull request event.
         echo "base_branch=${{ github.head_ref || github.ref_name }}" >> $GITHUB_OUTPUT
       id: branch
     - uses: actions/checkout@v3
-      if: startsWith(github.head_ref, 'actions/imgoptmizer/') != true && startsWith(github.ref_name, 'actions/imgoptmizer/') != true
+      if: startsWith(github.head_ref, 'actions/imgoptimizer/') != true && startsWith(github.ref_name, 'actions/imgoptimizer/') != true
       with:
         ref: ${{ steps.branch.outputs.base_branch }}
     - name: Get actions information
-      if: startsWith(github.head_ref, 'actions/imgoptmizer/') != true && startsWith(github.ref_name, 'actions/imgoptmizer/') != true
+      if: startsWith(github.head_ref, 'actions/imgoptimizer/') != true && startsWith(github.ref_name, 'actions/imgoptimizer/') != true
       shell: bash
       run: |
         if [ '.' = $(basename ${{ github.action_path }}) ]; then
@@ -57,62 +57,62 @@ runs:
         echo "tag=${tag}" >> $GITHUB_OUTPUT
       id: actions-info
     - name: Git reset
-      if: startsWith(github.head_ref, 'actions/imgoptmizer/') != true && startsWith(github.ref_name, 'actions/imgoptmizer/') != true
+      if: startsWith(github.head_ref, 'actions/imgoptimizer/') != true && startsWith(github.ref_name, 'actions/imgoptimizer/') != true
       shell: bash
       run: |
         # NOTE: If the trigger event is 'pull_request', `git fetch` is necessary.
         git fetch
         git reset --hard origin/${{ steps.branch.outputs.base_branch }}
     - name: Export images' statistics in json before optimization
-      if: startsWith(github.head_ref, 'actions/imgoptmizer/') != true && startsWith(github.ref_name, 'actions/imgoptmizer/') != true
+      if: startsWith(github.head_ref, 'actions/imgoptimizer/') != true && startsWith(github.ref_name, 'actions/imgoptimizer/') != true
       shell: bash
       run: |
         deno run \
           --allow-read \
           --allow-write \
-          https://raw.githubusercontent.com/mthsmb/imgoptmizer/${{ steps.actions-info.outputs.tag }}/src/export_stat.ts \
+          https://raw.githubusercontent.com/mthsmb/imgoptimizer/${{ steps.actions-info.outputs.tag }}/src/export_stat.ts \
           '${{ inputs.paths-ignore-regexp }}' \
-          '/tmp/imgoptmizer-stat.json'
+          '/tmp/imgoptimizer-stat.json'
     - name: Optimize images
-      if: startsWith(github.head_ref, 'actions/imgoptmizer/') != true && startsWith(github.ref_name, 'actions/imgoptmizer/') != true
+      if: startsWith(github.head_ref, 'actions/imgoptimizer/') != true && startsWith(github.ref_name, 'actions/imgoptimizer/') != true
       shell: bash
       run: |
         deno run \
           --allow-read \
           --allow-run \
-          https://raw.githubusercontent.com/mthsmb/imgoptmizer/${{ steps.actions-info.outputs.tag }}/src/optimize.ts \
+          https://raw.githubusercontent.com/mthsmb/imgoptimizer/${{ steps.actions-info.outputs.tag }}/src/optimize.ts \
           '${{ inputs.paths-ignore-regexp }}'
     - name: Export images' statistics in json after optimization
-      if: startsWith(github.head_ref, 'actions/imgoptmizer/') != true && startsWith(github.ref_name, 'actions/imgoptmizer/') != true
+      if: startsWith(github.head_ref, 'actions/imgoptimizer/') != true && startsWith(github.ref_name, 'actions/imgoptimizer/') != true
       shell: bash
       run: |
         deno run \
           --allow-read \
           --allow-write \
-          https://raw.githubusercontent.com/mthsmb/imgoptmizer/${{ steps.actions-info.outputs.tag }}/src/export_stat.ts \
+          https://raw.githubusercontent.com/mthsmb/imgoptimizer/${{ steps.actions-info.outputs.tag }}/src/export_stat.ts \
           '${{ inputs.paths-ignore-regexp }}' \
-          '/tmp/imgoptmizer-stat.json'
+          '/tmp/imgoptimizer-stat.json'
     - name: Export images' statistics in json after optimization
-      if: startsWith(github.head_ref, 'actions/imgoptmizer/') != true && startsWith(github.ref_name, 'actions/imgoptmizer/') != true
+      if: startsWith(github.head_ref, 'actions/imgoptimizer/') != true && startsWith(github.ref_name, 'actions/imgoptimizer/') != true
       shell: bash
       run: |
         message=$(deno run \
           --allow-read \
-          https://raw.githubusercontent.com/mthsmb/imgoptmizer/${{ steps.actions-info.outputs.tag }}/src/show_stat_message.ts \
-          '/tmp/imgoptmizer-stat.json'
+          https://raw.githubusercontent.com/mthsmb/imgoptimizer/${{ steps.actions-info.outputs.tag }}/src/show_stat_message.ts \
+          '/tmp/imgoptimizer-stat.json'
         )
 
         title=$(deno run \
           --allow-read \
-          https://raw.githubusercontent.com/mthsmb/imgoptmizer/${{ steps.actions-info.outputs.tag }}/src/show_stat_title.ts \
-          '/tmp/imgoptmizer-stat.json'
+          https://raw.githubusercontent.com/mthsmb/imgoptimizer/${{ steps.actions-info.outputs.tag }}/src/show_stat_title.ts \
+          '/tmp/imgoptimizer-stat.json'
         )
 
         echo "message=${message}" >> $GITHUB_OUTPUT
         echo "title=${title}" >> $GITHUB_OUTPUT
       id: template
     - name: Check if images were compressed
-      if: startsWith(github.head_ref, 'actions/imgoptmizer/') != true && startsWith(github.ref_name, 'actions/imgoptmizer/') != true && steps.template.outputs.message != ''
+      if: startsWith(github.head_ref, 'actions/imgoptimizer/') != true && startsWith(github.ref_name, 'actions/imgoptimizer/') != true && steps.template.outputs.message != ''
       shell: bash
       run: |
         if [ -z "$(git diff --name-only)" ]; then
@@ -125,7 +125,7 @@ runs:
         fi
       id: diff
     - name: Commit images
-      if: startsWith(github.head_ref, 'actions/imgoptmizer/') != true && startsWith(github.ref_name, 'actions/imgoptmizer/') != true && steps.template.outputs.message != ''
+      if: startsWith(github.head_ref, 'actions/imgoptimizer/') != true && startsWith(github.ref_name, 'actions/imgoptimizer/') != true && steps.template.outputs.message != ''
       shell: bash
       run: |
         if [ -n "${{ steps.diff.outputs.no_change }}" ]; then
@@ -136,16 +136,16 @@ runs:
         git config --local user.name "GitHub"
         git config --local user.email "noreply@github.com"
         git add .
-        git commit -m "Optimize images by imgoptmizer action"
+        git commit -m "Optimize images by imgoptimizer action"
 
         sha=$(git rev-parse --short HEAD)
-        new_branch="actions/imgoptmizer/${sha}"
+        new_branch="actions/imgoptimizer/${sha}"
 
         echo "sha=${sha}" >> $GITHUB_OUTPUT
         echo "new_branch=${new_branch}" >> $GITHUB_OUTPUT
       id: commit
     - name: Create a pull request
-      if: startsWith(github.head_ref, 'actions/imgoptmizer/') != true && startsWith(github.ref_name, 'actions/imgoptmizer/') != true && steps.template.outputs.message != ''
+      if: startsWith(github.head_ref, 'actions/imgoptimizer/') != true && startsWith(github.ref_name, 'actions/imgoptimizer/') != true && steps.template.outputs.message != ''
       uses: peter-evans/create-pull-request@v3.14.0
       with:
         token: ${{ inputs.token }}
@@ -158,13 +158,13 @@ runs:
         draft: false
         delete-branch: true
     - name: Set outputs
-      if: startsWith(github.head_ref, 'actions/imgoptmizer/') != true && startsWith(github.ref_name, 'actions/imgoptmizer/') != true && steps.template.outputs.message != ''
+      if: startsWith(github.head_ref, 'actions/imgoptimizer/') != true && startsWith(github.ref_name, 'actions/imgoptimizer/') != true && steps.template.outputs.message != ''
       shell: bash
       id: set-outputs
       run: |
         echo "pull-request-number=$PULL_REQUEST_NUMBER" >> $GITHUB_OUTPUT
     - name: Check outputs
-      if: startsWith(github.head_ref, 'actions/imgoptmizer/') != true && startsWith(github.ref_name, 'actions/imgoptmizer/') != true && steps.template.outputs.message != ''
+      if: startsWith(github.head_ref, 'actions/imgoptimizer/') != true && startsWith(github.ref_name, 'actions/imgoptimizer/') != true && steps.template.outputs.message != ''
       shell: bash
       run: |
         echo "pull-request-number: ${{ steps.set-outputs.outputs.pull-request-number }}"

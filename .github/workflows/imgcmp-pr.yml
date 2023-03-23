@@ -1,19 +1,19 @@
-name: imgoptmizer-pr
+name: imgoptimizer-pr
 on: [pull_request]
 jobs:
-  imgoptmizer-pr:
+  imgoptimizer-pr:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3.0.0
       - uses: ./
-        id: imgoptmizer
+        id: imgoptimizer
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           paths-ignore-regexp: 'figs/logo\.png'
       - name: Close Pull
-        if: steps.imgoptmizer.outputs.pull-request-number != ''
+        if: steps.imgoptimizer.outputs.pull-request-number != ''
         uses: peter-evans/close-pull@v2
         with:
-          pull-request-number: ${{ steps.imgoptmizer.outputs.pull-request-number }}
+          pull-request-number: ${{ steps.imgoptimizer.outputs.pull-request-number }}
           comment: Auto-closing pull request
           delete-branch: true
